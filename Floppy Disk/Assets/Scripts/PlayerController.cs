@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody2D rb;
     Quaternion down_rotation;
     Quaternion up_rotation;
+    bool playing = false;
 
 	// Use this for initialization
 	void Start () {
@@ -23,26 +24,45 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-        // Mouse Input is automaticaly translated to tap on phone devices
-        if (Input.GetMouseButtonDown(0))
+        if (playing)
         {
-            transform.rotation = up_rotation;
-            rb.velocity = Vector3.zero;
-            rb.AddForce(Vector2.up * jump_force, ForceMode2D.Force);
+            // Mouse Input is automaticaly translated to tap on phone devices
+            if (Input.GetMouseButtonDown(0))
+            {
+                transform.rotation = up_rotation;
+                rb.velocity = Vector3.zero;
+                rb.AddForce(Vector2.up * jump_force, ForceMode2D.Force);
+            }
+
+            if (rb.velocity.y <= -3)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, down_rotation, move_smooth * Time.deltaTime);
+            }
         }
-
-        if(rb.velocity.y <= -3)
+        else
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, down_rotation, move_smooth * Time.deltaTime);
+            // animate disk to go up and down
         }
 	}
+
+    public void SetPlaying(bool b)
+    {
+        playing = b;
+        rb.simulated = true;
+    }
+
+    public void ResetPlayer()
+    {
+        transform.position = start_position;
+        playing = false;
+        rb.simulated = false;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Score"))
         {
-
+            GameManager.Instance.AddToScore();
         }
 
         if (collision.CompareTag("Obstacle"))
@@ -52,4 +72,5 @@ public class PlayerController : MonoBehaviour {
         }
 
     }
+
 }

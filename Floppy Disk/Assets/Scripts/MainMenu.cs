@@ -33,7 +33,7 @@ public class MainMenu : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("Start") && titleScreenUI.activeSelf)           // Title screen -> hide title and show main menu buttons.
+        if (Input.GetMouseButtonDown(0))           // Title screen -> hide title and show main menu buttons.
         {
             //AudioManager.Instance.Play("Start");                                    // Play sound effect.
             titleScreenUI.SetActive(false);

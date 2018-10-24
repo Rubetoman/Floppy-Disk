@@ -28,13 +28,15 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public enum StateType
     {
-        Play,           // Player is playing a game level.
+        Play,           // Player is playing the game.
         MainMenu,       // Player is on the main menu.
         Options,        // Player is adjusting game options.
-        Gameover,       // Player is dead and out of lifes.
-        Ranking         // Player has already win the game or is viewing the ranking.
+        Gameover,       // Player is dead.
+        Ranking         // Player is loking at the ranking.
     };
     public GameObject player;           // Player GameObject (updated on each scene).
+    public GameObject obstacleSpawner;  // The GameObject that spwns the obstacles.
+    public Text scoreText;
     public StateType gameState;         // State of the game.
 
     public GameObject menu;
@@ -52,14 +54,15 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);                          // Avoid destroying the instance when changing scene.
         #endregion
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        player = GameObject.FindGameObjectWithTag("Player");    // Set player variable.
-        score = 0;                                         // Start with score at 0.
+        score = 0;      // Start with score at 0.
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void Update()
     {
-        player = GameObject.FindGameObjectWithTag("Player");    // Update Player GameObject on scene loaded.
+        /*if(gameState == StateType.MainMenu && Input.GetMouseButtonDown(0))
+        {
+            Play();
+        }*/
     }
 
     /// <summary>
@@ -67,16 +70,7 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void ResetGameManager()
     {
-        ResetTotalScore();
-    }
-
-    /// <summary>
-    /// Resets current level by reseting the GameManager, reloading the level and seting the state back to Play.
-    /// </summary>
-    public void ResetLevel()
-    {
-        SetGameState(StateType.Play);
-        ResetGameManager();
+        ResetScore();
     }
 
     #region Game State Functions
@@ -105,6 +99,7 @@ public class GameManager : MonoBehaviour {
                 game_over_menu.SetActive(true);
                 ranking_screen.SetActive(false);
                 options_menu.SetActive(false);
+                scoreText.enabled = false;
                 break;
             case StateType.Ranking:
                 menu.SetActive(false);
@@ -143,7 +138,7 @@ public class GameManager : MonoBehaviour {
     /// Returns the Total Score
     /// </summary>
     /// <returns>Int of the total score</returns>
-    public int GetTotalScore()
+    public int GetScore()
     {
         return score;
     }
@@ -152,18 +147,59 @@ public class GameManager : MonoBehaviour {
     /// Adds the amount passed as parameter to the Total Score
     /// </summary>
     /// <param name="amount">Amount of points to add</param>
-    public void AddToTotalScore()
+    public void AddToScore()
     {
         score++;
+        UpdateScore();
     }
 
     /// <summary>
     /// Sets the Total Score back to 0
     /// </summary>
-    public void ResetTotalScore()
+    public void ResetScore()
     {
         score = 0;
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
+        scoreText.text = score.ToString();
     }
     #endregion
 
+    public void Play()
+    {
+        // play sound
+        ResetGame();
+        SetGameState(StateType.Play);
+    }
+
+    public void Options()
+    {
+        // play sound
+        SetGameState(StateType.Options);
+    }
+
+    public void Ranking()
+    {
+        // play sound
+        SetGameState(StateType.Ranking);
+    }
+
+    public void MainMenu()
+    {
+        SetGameState(GameManager.StateType.MainMenu);
+    }
+
+
+    public void ResetGame()
+    {
+        ResetScore();
+        player.GetComponent<PlayerController>().ResetPlayer();
+        player.GetComponent<PlayerController>().SetPlaying(true);
+        obstacleSpawner.GetComponent<ColumnController>().DisposeAll();
+        obstacleSpawner.GetComponent<ColumnController>().enabled = true;
+        scoreText.enabled = true;
+    }
 }
