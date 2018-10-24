@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Score
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -42,4 +43,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Game
+    uniqueID: 4253893255
+    locked: 0
+  - name: UI
+    uniqueID: 175065851
     locked: 0

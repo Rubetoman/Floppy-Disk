@@ -17,23 +17,11 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance {
         get {
             // If the scene doesn't contain an instance load the prefab.
-            if (_instance == null) { Resources.Load("Prefab/GameManagement/GameManager"); }               
+            if (_instance == null) { Resources.Load("Prefab/GameManager"); }               
             return _instance;
         }
     }
     #endregion
-
-    /// <summary>
-    /// Class that contains information about the current Player.
-    /// </summary>
-    public class PlayerInfo
-    {
-        public const int startingLives = 3; // Number of lives that the Player is given when spawning.
-        public int lives = startingLives;   // Current number of lives the player has.
-        public bool isDead = false;         // If the Player is dead or not.
-        public bool invertXAxis = false;    // Invert horizontal movement (true for invert).
-        public bool invertYAxis = true;     // Invert vertical movement (true for invert).
-    }
 
     /// <summary>
     /// Enumum to define the state of the game.
@@ -43,19 +31,18 @@ public class GameManager : MonoBehaviour {
         Play,           // Player is playing a game level.
         MainMenu,       // Player is on the main menu.
         Options,        // Player is adjusting game options.
-        PauseMenu,      // Player is viewing in-game menu.
         Gameover,       // Player is dead and out of lifes.
         Ranking         // Player has already win the game or is viewing the ranking.
     };
     public GameObject player;           // Player GameObject (updated on each scene).
     public StateType gameState;         // State of the game.
-    public GameObject loadingScreen;    // Screen that will show up when game is loading a new scene.
-    public Slider loadSlider;           // Slider that shows the progress of load for the new scene.
-    public Text progressText;           // Text of the loading screen.
-    public PlayerInfo playerInfo;       // Information of the Player.
 
-    private int TotalScore { get; set; }    // Score of the game. 
-    private bool loading = false;           // Bool that tells if a new scene is being loaded. (Used to avoid loading a new scene while already loading one).
+    public GameObject menu;
+    public GameObject game_over_menu;
+    public GameObject ranking_screen;
+    public GameObject options_menu;
+
+    private int score { get; set; }    // Score of the game. 
 
     void Awake()
     {
@@ -67,7 +54,7 @@ public class GameManager : MonoBehaviour {
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         player = GameObject.FindGameObjectWithTag("Player");    // Set player variable.
-        TotalScore = 0;                                         // Start with score at 0.
+        score = 0;                                         // Start with score at 0.
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -80,7 +67,6 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void ResetGameManager()
     {
-        ResetPlayerInfo();
         ResetTotalScore();
     }
 
@@ -91,7 +77,6 @@ public class GameManager : MonoBehaviour {
     {
         SetGameState(StateType.Play);
         ResetGameManager();
-        ResetScene();
     }
 
     #region Game State Functions
@@ -106,6 +91,41 @@ public class GameManager : MonoBehaviour {
             gameState = state;
         else
             Debug.LogWarning("State already in " + state.ToString());
+
+        switch (state)
+        {
+            case StateType.Play:
+                menu.SetActive(false);
+                game_over_menu.SetActive(false);
+                ranking_screen.SetActive(false);
+                options_menu.SetActive(false);
+                break;
+            case StateType.Gameover:
+                menu.SetActive(false);
+                game_over_menu.SetActive(true);
+                ranking_screen.SetActive(false);
+                options_menu.SetActive(false);
+                break;
+            case StateType.Ranking:
+                menu.SetActive(false);
+                game_over_menu.SetActive(false);
+                ranking_screen.SetActive(true);
+                options_menu.SetActive(false);
+                break;
+            case StateType.MainMenu:
+                menu.SetActive(true);
+                game_over_menu.SetActive(false);
+                ranking_screen.SetActive(false);
+                options_menu.SetActive(false);
+                break;
+            case StateType.Options:
+                menu.SetActive(false);
+                game_over_menu.SetActive(false);
+                ranking_screen.SetActive(false);
+                options_menu.SetActive(true);
+                break;
+
+        }
     }
 
     /// <summary>
@@ -125,28 +145,16 @@ public class GameManager : MonoBehaviour {
     /// <returns>Int of the total score</returns>
     public int GetTotalScore()
     {
-        return TotalScore;
+        return score;
     }
 
     /// <summary>
     /// Adds the amount passed as parameter to the Total Score
     /// </summary>
     /// <param name="amount">Amount of points to add</param>
-    public void AddToTotalScore(int amount)
+    public void AddToTotalScore()
     {
-        TotalScore += amount;
-    }
-
-    /// <summary>
-    /// Substracts the amount passed as parameter from Total Score, it can go below 0.
-    /// </summary>
-    /// <param name="amount">Amount to substract</param>
-    public void SubstractToTotalScore(int amount)
-    {
-        if (TotalScore - amount >= 0)
-            TotalScore -= amount;
-        else
-            Debug.LogError("TotalScore can't go below 0");
+        score++;
     }
 
     /// <summary>
@@ -154,169 +162,8 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public void ResetTotalScore()
     {
-        TotalScore = 0;
+        score = 0;
     }
     #endregion
 
-    #region PlayerFunctions
-
-    /// <summary>
-    /// Sets player dead or alive.
-    /// </summary>
-    /// <param name="state"> True to set it dead, false otherwise.</param>
-    public void SetPlayerDead(bool state)
-    {
-        if(playerInfo.isDead != state)
-            playerInfo.isDead = state;
-    }
-
-
-    /// <summary>
-    /// Resets PlayerInfo variables to the default value.
-    /// </summary>
-    void ResetPlayerInfo()
-    {
-        playerInfo.isDead = false;
-    }
-    #endregion
-
-    #region SceneFunctions
-
-    /// <summary>
-    /// Loads next scene by buildIndex.
-    /// </summary>
-    public void NextScene()
-    {
-        LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-
-    /// <summary>
-    /// Loads previous scene by buildIndex.
-    /// </summary>
-    public void PreviousScene()
-    {
-        LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-    }
-
-    /// <summary>
-    /// Loads a scene by his number on the Build Index.
-    /// </summary>
-    /// <param name="sceneNumber"> Number of the scene on the Build Index. </param>
-    public void LoadScene(int sceneNumber)
-    {
-        if (loading)    // Exit if a scene is being loaded.
-        {
-            Debug.LogWarning("Already loading a scene.");
-            return;
-        }
-        if (sceneNumber < 0)
-            Debug.LogError("Can't load a scene with a number lower than 0. Scene numbers on the Build Index start at 0.");
-        else if (sceneNumber >= SceneManager.sceneCountInBuildSettings)
-            Debug.LogError("There isn't any scene with a number as high as that. Higher scene number is: " + (SceneManager.sceneCountInBuildSettings-1));
-        else
-        {
-            if(sceneNumber == 0)    // main_menu
-            {
-                gameState = StateType.MainMenu;
-                ResetGameManager();
-            }
-            else if(sceneNumber == SceneManager.sceneCountInBuildSettings - 1)   //ranking
-            {
-                gameState = StateType.Ranking;
-                ResetGameManager();
-            }
-            else
-            {
-                gameState = StateType.Play;
-            }
-            // Load new scene asynchronously.
-            StartCoroutine(LoadAsync(sceneNumber));
-        }
-    }
-
-    /// <summary>
-    /// Loads a scene by his name.
-    /// </summary>
-    /// <param name="sceneNumber"> Name of the scene.</param>
-    public void LoadScene(string sceneName)
-    {
-        if (loading)    // Exit if a scene is being loaded.
-        {
-            Debug.LogWarning("Already loading a scene.");
-            return;
-        }
-        if (sceneName == "main_menu")    // main_menu
-        {
-            ResetGameManager();
-        }
-        else if (sceneName == "credits")    //ranking
-        {
-            gameState = StateType.Ranking;
-            ResetGameManager();
-        }
-
-        // Load new scene asynchronously.
-        StartCoroutine(LoadAsync(sceneName));
-    }
-
-    /// <summary>
-    /// Reloads the current scene.
-    /// </summary>
-    public void ResetScene()
-    {
-        // Reload it asynchronously.
-        StartCoroutine(LoadAsync(SceneManager.GetActiveScene().buildIndex));
-    }
-    
-    /// <summary>
-    /// This Couroutine will load the scene by index while showing a load screen.
-    /// </summary>
-    /// <param name="sceneIndex"> Number of the scene on the build scenes.</param>
-    IEnumerator LoadAsync(int sceneIndex)
-    {
-        loading = true;                                                     
-        Time.timeScale = 0f;                                                // Pause game time.
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex); // Load new scene asynchronously.
-        if (operation == null)
-            yield break;
-
-        loadingScreen.SetActive(true);                                      // Show loading screen.
-        while (!operation.isDone)                                           // Show load progress.
-        {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            loadSlider.value = progress;                                        
-            progressText.text = Mathf.RoundToInt(progress * 100f) + "%";
-            yield return null;
-        }
-        loadingScreen.SetActive(false);                                     // Hide loading screen.
-        Time.timeScale = 1f;                                                // Resume game time.
-        loading = false;
-    }
-
-    /// <summary>
-    /// This Couroutine will load the scene by index while showing a load screen.
-    /// </summary>
-    /// <param name="sceneName"> Name of the scene to load</param>
-    IEnumerator LoadAsync(string sceneName)
-    {
-        loading = true;
-        Time.timeScale = 0f;                                                // Pause game time.
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);  // Load new scene asynchronously.
-        if (operation == null)
-            yield break;
-
-        loadingScreen.SetActive(true);                                      // Show loading screen.
-        while (!operation.isDone)                                           // Show load progress.
-        {
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-            loadSlider.value = progress;
-            progressText.text = Mathf.RoundToInt(progress * 100f) + "%";
-            yield return null;
-        }
-        loadingScreen.SetActive(false);                                     // Hide loading screen.
-        Time.timeScale = 1f;                                                // Resume game time.
-        loading = false;
-    }
-
-    #endregion
 }

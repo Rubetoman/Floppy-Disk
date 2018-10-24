@@ -81,22 +81,13 @@ public class MainMenu : MonoBehaviour {
     public void PlayGame()
     {
         //GetComponent<AudioSource>().Stop(); // Stop every sound.
-        GameManager.Instance.NextScene();
-    }
-
-    /// <summary>
-    /// Function for the Credits button. It launches the credits of the game.
-    /// </summary>
-    public void Credits()
-    {
-        //GetComponent<AudioSource>().Stop();
-        GameManager.Instance.LoadScene("credits");
+        
     }
 
     public void Ranking()
     {
         //GetComponent<AudioSource>().Stop();
-        GameManager.Instance.LoadScene("ranking");
+
     }
 
     /// <summary>
