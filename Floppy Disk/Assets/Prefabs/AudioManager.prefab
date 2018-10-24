@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1369358531147926}
+  m_IsPrefabAsset: 1
+--- !u!1 &1369358531147926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4085255639195408}
+  - component: {fileID: 114750929662254164}
+  m_Layer: 10
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4085255639195408
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1369358531147926}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114750929662254164
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1369358531147926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 220dfc7e84756f1488c8448b45a7dc5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: ff93023ae5cb5c64e8d387e10b2f5b17, type: 2}
+  musicGroup: {fileID: 243218029498832798, guid: ff93023ae5cb5c64e8d387e10b2f5b17,
+    type: 2}
+  soundEffectsGroup: {fileID: 243904640561500230, guid: ff93023ae5cb5c64e8d387e10b2f5b17,
+    type: 2}
+  sounds:
+  - name: Selection
+    clip: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Selection2
+    clip: {fileID: 8300000, guid: 6e8772b49f34d402a90016ed445d8a2f, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ButtonPress
+    clip: {fileID: 8300000, guid: eb1766cd4fab8224eaaf73fd9bf229ea, type: 3}
+    soundType: 0
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: GameStart
+    clip: {fileID: 8300000, guid: 78e40059d0425994b8584102e375ef5a, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: PowerUp
+    clip: {fileID: 8300000, guid: 8b4580a0c31da2b408d5279d36308320, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Hit
+    clip: {fileID: 8300000, guid: 71f993848c0a4c34bb93b57743d7116e, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Boost
+    clip: {fileID: 8300000, guid: 2b6fec76c53cbe24ebf7100358e06d98, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Bonus
+    clip: {fileID: 8300000, guid: e26653bf30f344441b2a908bf8cc6e07, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: boss_level
+    clip: {fileID: 8300000, guid: 5cc75632333e5b84a9cf601efe8623df, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Hurt
+    clip: {fileID: 8300000, guid: 56b1a831edc44b34db317dce90f3dd89, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Brake
+    clip: {fileID: 8300000, guid: de24fc66b41653f45b7ae35fe914ab07, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BarrelRoll
+    clip: {fileID: 8300000, guid: f0a1b0d8833dd9245a232a8ba6c63324, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LaserBeamCharge
+    clip: {fileID: 8300000, guid: a830a5957a1318243bf7be90c63ccc24, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: LaserBeamShoot
+    clip: {fileID: 8300000, guid: c280f45bcbb118a449fc2899560bd42d, type: 3}
+    soundType: 0
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: level_01_intro
+    clip: {fileID: 8300000, guid: bb4da9536f28a3245b2be45b84b7d03a, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: level_01_loop
+    clip: {fileID: 8300000, guid: c58542dd8b2d74949a1b2ab0cbb2f453, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: level_01
+    clip: {fileID: 8300000, guid: f2b8d2f583a43c34c8e7bfdb067a6daa, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
