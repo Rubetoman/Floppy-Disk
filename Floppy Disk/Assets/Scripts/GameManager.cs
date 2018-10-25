@@ -57,14 +57,6 @@ public class GameManager : MonoBehaviour {
         score = 0;      // Start with score at 0.
     }
 
-    private void Update()
-    {
-        /*if(gameState == StateType.MainMenu && Input.GetMouseButtonDown(0))
-        {
-            Play();
-        }*/
-    }
-
     /// <summary>
     /// Resets GameManager by seting the TotalScore to 0, Player values to default and resets Player HUD if is on the scene.
     /// </summary>
@@ -135,18 +127,17 @@ public class GameManager : MonoBehaviour {
     #region ScoreFunctions
 
     /// <summary>
-    /// Returns the Total Score
+    /// Returns the Score
     /// </summary>
-    /// <returns>Int of the total score</returns>
+    /// <returns>Int of the score</returns>
     public int GetScore()
     {
         return score;
     }
 
     /// <summary>
-    /// Adds the amount passed as parameter to the Total Score
+    /// Adds one point to the Score
     /// </summary>
-    /// <param name="amount">Amount of points to add</param>
     public void AddToScore()
     {
         score++;
@@ -154,7 +145,7 @@ public class GameManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Sets the Total Score back to 0
+    /// Sets the Score back to 0
     /// </summary>
     public void ResetScore()
     {
@@ -189,7 +180,7 @@ public class GameManager : MonoBehaviour {
 
     public void MainMenu()
     {
-        SetGameState(GameManager.StateType.MainMenu);
+        SetGameState(StateType.MainMenu);
     }
 
 
