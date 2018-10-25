@@ -12,15 +12,18 @@ public class LeaderBoardController : MonoBehaviour {
 
     private void Awake()
     {
-        SetScore("AAA", 10);
         SetScore("ABB", 0);
         SetScore("Ruben", 999);
         SetScore("adsad", 112);
         SetScore("NAS", 8);
         SetScore("BBB", 232);
         SetScore("ADS", 1);
-        SetScore("AAA", 10);
-        SetScore("AAA", 22);
+        for(int i = 0; i < 45; i++)
+        {
+            print(i);
+            SetScore("A" + i, Random.Range(999, 0));
+        }
+
     }
 
     void Init () {
@@ -60,7 +63,11 @@ public class LeaderBoardController : MonoBehaviour {
         playerScores[username] = score;
     }
 
-    public void OrderByScore()
+    /// <summary>
+    /// Sorts the dictionary from best to lower score.
+    /// Deletes all score gameobjects and creates them again sorted.
+    /// </summary>
+    public void SortByScore()
     {
         var items = from entry in playerScores
                     orderby entry.Value descending
@@ -78,7 +85,11 @@ public class LeaderBoardController : MonoBehaviour {
         ShowScores();
     }
 
-    public void OrderByName()
+    /// <summary>
+    /// Sorts the dictionary in username alphabetical order.
+    /// Deletes all score gameobjects and creates them again sorted.
+    /// </summary>
+    public void SortByName()
     {
         var list = playerScores.Keys.ToList();
         list.Sort();

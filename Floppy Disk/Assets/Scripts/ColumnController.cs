@@ -27,7 +27,6 @@ public class ColumnController : MonoBehaviour {
 
     public YSpawnRange ySpawnRange;
     public Vector3 defaultSpawnPos;
-    public Vector3 immediateSpawnPos;
     public Vector2 targetAspectRatio;
 
     float spawnTimer;
