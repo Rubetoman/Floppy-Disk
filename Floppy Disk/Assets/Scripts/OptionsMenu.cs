@@ -19,7 +19,7 @@ public class OptionsMenu : MonoBehaviour {
     /// <param name="volume"> Volume value.</param>
     public void SetMusicVolume (float volume)
     {
-        //AudioManager.Instance.SetGameMusicVolume(volume);
+        AudioManager.Instance.SetGameMusicVolume(volume);
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ public class OptionsMenu : MonoBehaviour {
     /// <param name="volume"> Volume value.</param>
     public void SetSoundEffectsVolume(float volume)
     {
-        //AudioManager.Instance.SetGameSoundEffectsVolume(volume);
+        AudioManager.Instance.SetGameSoundEffectsVolume(volume);
     }
 
 
@@ -46,6 +46,6 @@ public class OptionsMenu : MonoBehaviour {
     /// <param name="name"> Name of the audio clip to play.</param>
     public void PlaySoundClip(string name)
     {
-        //AudioManager.Instance.Play(name);
+        AudioManager.Instance.Play(name);
     }
 }

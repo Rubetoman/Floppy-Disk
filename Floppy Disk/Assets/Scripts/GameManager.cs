@@ -39,8 +39,6 @@ public class GameManager : MonoBehaviour {
     public Text scoreText;
     public StateType gameState;         // State of the game.
 
-    public AudioManager audioManager;
-
     public GameObject menu;
     public GameObject game_over_menu;
     public GameObject ranking_screen;
@@ -62,8 +60,8 @@ public class GameManager : MonoBehaviour {
     private void Update()
     {
         // If song ended play a new one
-        if (gameState == StateType.Play && !audioManager.IsClipPlaying())
-            audioManager.PlayRandomSong();
+        if (gameState == StateType.Play && !AudioManager.Instance.IsClipPlaying())
+            AudioManager.Instance.PlayRandomSong();
     }
 
     /// <summary>
@@ -203,6 +201,6 @@ public class GameManager : MonoBehaviour {
         scoreText.enabled = true;
 
         // Audio
-        audioManager.PlayRandomSong();
+        AudioManager.Instance.PlayRandomSong();
     }
 }
