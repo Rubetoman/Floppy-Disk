@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour {
     public GameObject ranking_screen;
     public GameObject options_menu;
 
+    public string startSoundName;
+
     private int score { get; set; }    // Score of the game. 
 
     void Awake()
@@ -57,6 +59,12 @@ public class GameManager : MonoBehaviour {
         #endregion
 
         score = 0;      // Start with score at 0.
+    }
+
+    private void Start()
+    {
+        // Play start sound
+        AudioManager.Instance.Play(startSoundName);
     }
 
     private void Update()
