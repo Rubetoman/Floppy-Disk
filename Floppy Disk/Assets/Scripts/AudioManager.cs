@@ -103,6 +103,34 @@ public class AudioManager : MonoBehaviour {
     }
 
     /// <summary>
+    /// Function to play an audio clip added to the AudioSource, it is found by the name given in the Sound class.
+    /// </summary>
+    /// <param name="name"> Name of the sound to be played. </param>
+    public void PlaySong(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("Soung: " + name + " not found.");
+            return;
+        }
+        if (s.soundType == SoundType.Music)                                      // See if the sound is a music clip.
+        {
+            // If there was a previous music clip playing stop it.
+            if (currentMusicClip != null && currentMusicClip.source.isPlaying)
+            {
+                Stop(currentMusicClip.name);
+
+                // Play sound effect
+                Play("Cassette");
+            }
+            currentMusicClip = s;
+        }
+
+        ChangeAudioSourceClip(s.source, s.clip, true, true);
+    }
+
+    /// <summary>
     /// Function to stop an audio clip added to the AudioSource, it is found by the name given in the Sound class.
     /// </summary>
     /// <param name="name"> Name of the sound to be stoped. </param>

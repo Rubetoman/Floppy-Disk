@@ -4107,9 +4107,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8defc2fd2f6351a4b92d7ae08ec78ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
-  musicGroup: {fileID: 0}
-  soundEffectsGroup: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: af2875219bd15bd4b994a87945fcb6aa, type: 2}
+  musicGroup: {fileID: 243862299059251892, guid: af2875219bd15bd4b994a87945fcb6aa,
+    type: 2}
+  soundEffectsGroup: {fileID: 243128089855987346, guid: af2875219bd15bd4b994a87945fcb6aa,
+    type: 2}
   sounds:
   - name: Confusions
     clip: {fileID: 8300000, guid: 36560e74883da0a499040586390c7c0a, type: 3}

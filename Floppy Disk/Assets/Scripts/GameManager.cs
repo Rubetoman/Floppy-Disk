@@ -196,6 +196,6 @@ public class GameManager : MonoBehaviour {
         scoreText.enabled = true;
 
         // Audio
-        audioManager.Play("Confusions");
+        audioManager.PlaySong("Confusions");
     }
 }
