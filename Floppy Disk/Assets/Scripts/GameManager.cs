@@ -35,9 +35,11 @@ public class GameManager : MonoBehaviour {
         Ranking         // Player is loking at the ranking.
     };
     public GameObject player;           // Player GameObject (updated on each scene).
-    public GameObject obstacleSpawner;  // The GameObject that spwns the obstacles.
+    public GameObject obstacleSpawner;  // The GameObject that spawns the obstacles.
     public Text scoreText;
     public StateType gameState;         // State of the game.
+
+    public AudioManager audioManager;
 
     public GameObject menu;
     public GameObject game_over_menu;
@@ -192,5 +194,8 @@ public class GameManager : MonoBehaviour {
         obstacleSpawner.GetComponent<ColumnController>().DisposeAll();
         obstacleSpawner.GetComponent<ColumnController>().enabled = true;
         scoreText.enabled = true;
+
+        // Audio
+        audioManager.Play("Confusions");
     }
 }
