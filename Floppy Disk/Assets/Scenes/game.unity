@@ -4112,6 +4112,7 @@ MonoBehaviour:
     type: 2}
   soundEffectsGroup: {fileID: 243128089855987346, guid: af2875219bd15bd4b994a87945fcb6aa,
     type: 2}
+  nextSongSoundEffect: Cassette
   sounds:
   - name: Confusions
     clip: {fileID: 8300000, guid: 36560e74883da0a499040586390c7c0a, type: 3}

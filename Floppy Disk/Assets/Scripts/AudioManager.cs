@@ -50,8 +50,10 @@ public class AudioManager : MonoBehaviour {
     public AudioMixer audioMixer;               // Mixer wich will reproduce the audio clips.
     public AudioMixerGroup musicGroup;          // Group of the mixer where music clips are played.
     public AudioMixerGroup soundEffectsGroup;   // Group of the mixer where sound effects clips are played.
+    public string nextSongSoundEffect;          // Name of the sound effect that will play before any song
     public Sound[] sounds;                      // Array containing all the sounds added to the AudioManager.
     private Sound currentMusicClip;             // Music clip that is currently being played (only one can be played at the same time).
+    public List<Sound> songs;                   // List with all songs, it is auto-filled on awake.
 
     private void Awake()
     {
@@ -71,7 +73,10 @@ public class AudioManager : MonoBehaviour {
             s.source = gameObject.AddComponent<AudioSource>();  // Add AudioSource component
             s.source.clip = s.clip;                             // Asign the clip to the AudioSource
             if (s.soundType == SoundType.Music)                 // Asign an output AudioMixerGroup
+            {
                 s.source.outputAudioMixerGroup = musicGroup;
+                songs.Add(s);
+            }
             else
                 s.source.outputAudioMixerGroup = soundEffectsGroup;
             s.source.loop = s.loop;                             // Set the clip to loop or not.
@@ -103,7 +108,39 @@ public class AudioManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Function to play an audio clip added to the AudioSource, it is found by the name given in the Sound class.
+    /// Function to play an audio song added to the AudioSource, it is found by the name given in the Sound class.
+    /// Before playing the song an audio effect will be played
+    /// </summary>
+    /// <param name="name"> Name of the sound to be played. </param>
+    public void PlayRandomSong()
+    {
+        int index = UnityEngine.Random.Range(0, songs.Count);
+        Sound s = songs[index];
+        if (s == null)
+        {
+            Debug.LogWarning("Soung: " + name + " not found.");
+            return;
+        }
+        if (s.soundType != SoundType.Music)                                      // See if the sound is a music clip.
+            return;
+
+        // If there was a previous music clip playing stop it.
+        if (currentMusicClip != null && currentMusicClip.source.isPlaying)
+        {
+            Stop(currentMusicClip.name);
+        }
+
+        // Play sound effect
+        Play(nextSongSoundEffect);
+        currentMusicClip = s;
+
+        //ChangeAudioSourceClip(s.source, s.clip, true, true);
+        StartCoroutine(ChangeAudioSourceClip(s.source, s.clip, true, false));
+    }
+
+    /// <summary>
+    /// Function to play an audio song added to the AudioSource, it is found by the name given in the Sound class.
+    /// Before playing the song an audio effect will be played
     /// </summary>
     /// <param name="name"> Name of the sound to be played. </param>
     public void PlaySong(string name)
@@ -124,7 +161,7 @@ public class AudioManager : MonoBehaviour {
         }
 
         // Play sound effect
-        Play("Cassette");
+        Play(nextSongSoundEffect);
         currentMusicClip = s;
 
         //ChangeAudioSourceClip(s.source, s.clip, true, true);
