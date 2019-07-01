@@ -114,20 +114,21 @@ public class AudioManager : MonoBehaviour {
             Debug.LogWarning("Soung: " + name + " not found.");
             return;
         }
-        if (s.soundType == SoundType.Music)                                      // See if the sound is a music clip.
-        {
-            // If there was a previous music clip playing stop it.
-            if (currentMusicClip != null && currentMusicClip.source.isPlaying)
-            {
-                Stop(currentMusicClip.name);
+        if (s.soundType != SoundType.Music)                                      // See if the sound is a music clip.
+            return;
 
-                // Play sound effect
-                Play("Cassette");
-            }
-            currentMusicClip = s;
+        // If there was a previous music clip playing stop it.
+        if (currentMusicClip != null && currentMusicClip.source.isPlaying)
+        {
+            Stop(currentMusicClip.name);
         }
 
-        ChangeAudioSourceClip(s.source, s.clip, true, true);
+        // Play sound effect
+        Play("Cassette");
+        currentMusicClip = s;
+
+        //ChangeAudioSourceClip(s.source, s.clip, true, true);
+        StartCoroutine(ChangeAudioSourceClip(s.source, s.clip, true, false));
     }
 
     /// <summary>
