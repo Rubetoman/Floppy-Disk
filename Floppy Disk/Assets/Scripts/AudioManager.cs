@@ -108,10 +108,9 @@ public class AudioManager : MonoBehaviour {
     }
 
     /// <summary>
-    /// Function to play an audio song added to the AudioSource, it is found by the name given in the Sound class.
+    /// Function to play any audio song added to the AudioSource.
     /// Before playing the song an audio effect will be played
     /// </summary>
-    /// <param name="name"> Name of the sound to be played. </param>
     public void PlayRandomSong()
     {
         int index = UnityEngine.Random.Range(0, songs.Count);
@@ -135,7 +134,7 @@ public class AudioManager : MonoBehaviour {
         currentMusicClip = s;
 
         //ChangeAudioSourceClip(s.source, s.clip, true, true);
-        StartCoroutine(ChangeAudioSourceClip(s.source, s.clip, true, false));
+        StartCoroutine(ChangeAudioSourceClip(s.source, s.clip, false, false));
     }
 
     /// <summary>
@@ -286,6 +285,16 @@ public class AudioManager : MonoBehaviour {
             return true;
         else
             return false;
+    }
+
+    /// <summary>
+    /// Function that returns true if an AudioClip is being played by the AudioManager.
+    /// </summary>
+    /// <returns> True if a clip is being played, false otherwise.</returns>
+    public bool IsClipPlaying()
+    {
+        AudioSource audioSource = GetComponent<AudioSource>();
+        return audioSource.isPlaying;
     }
     #endregion
 }

@@ -59,6 +59,13 @@ public class GameManager : MonoBehaviour {
         score = 0;      // Start with score at 0.
     }
 
+    private void Update()
+    {
+        // If song ended play a new one
+        if (gameState == StateType.Play && !audioManager.IsClipPlaying())
+            audioManager.PlayRandomSong();
+    }
+
     /// <summary>
     /// Resets GameManager by seting the TotalScore to 0, Player values to default and resets Player HUD if is on the scene.
     /// </summary>
