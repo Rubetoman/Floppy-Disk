@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour {
         MainMenu,       // Player is on the main menu.
         Options,        // Player is adjusting game options.
         Gameover,       // Player is dead.
+        Credits,        // Player is loking at the credits.  
         Ranking         // Player is loking at the ranking.
     };
     public GameObject player;           // Player GameObject (updated on each scene).
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject menu;
     public GameObject game_over_menu;
+    public GameObject credits_menu;
     public GameObject ranking_screen;
     public GameObject options_menu;
 
@@ -90,12 +92,21 @@ public class GameManager : MonoBehaviour {
             case StateType.Play:
                 menu.SetActive(false);
                 game_over_menu.SetActive(false);
+                credits_menu.SetActive(false);
                 ranking_screen.SetActive(false);
                 options_menu.SetActive(false);
                 break;
             case StateType.Gameover:
                 menu.SetActive(false);
                 game_over_menu.SetActive(true);
+                credits_menu.SetActive(false);
+                ranking_screen.SetActive(false);
+                options_menu.SetActive(false);
+                scoreText.enabled = false;
+                break;
+            case StateType.Credits:
+                menu.SetActive(false);
+                credits_menu.SetActive(true);
                 ranking_screen.SetActive(false);
                 options_menu.SetActive(false);
                 scoreText.enabled = false;
@@ -109,12 +120,14 @@ public class GameManager : MonoBehaviour {
             case StateType.MainMenu:
                 menu.SetActive(true);
                 game_over_menu.SetActive(false);
+                credits_menu.SetActive(false);
                 ranking_screen.SetActive(false);
                 options_menu.SetActive(false);
                 break;
             case StateType.Options:
                 menu.SetActive(false);
                 game_over_menu.SetActive(false);
+                credits_menu.SetActive(false);
                 ranking_screen.SetActive(false);
                 options_menu.SetActive(true);
                 break;
@@ -177,6 +190,12 @@ public class GameManager : MonoBehaviour {
     {
         // play sound
         SetGameState(StateType.Options);
+    }
+
+    public void Credits()
+    {
+        // play sound
+        SetGameState(StateType.Credits);
     }
 
     public void Ranking()
