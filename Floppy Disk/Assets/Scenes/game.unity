@@ -4119,7 +4119,7 @@ MonoBehaviour:
     soundType: 1
     volume: 1
     pitch: 1
-    loop: 1
+    loop: 0
     source: {fileID: 0}
   - name: Cassette
     clip: {fileID: 8300000, guid: d4b4e1be97362df4994862fbf36b35eb, type: 3}
@@ -4128,6 +4128,105 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Above All
+    clip: {fileID: 8300000, guid: 256bbe91c91df244da6e1928cad9ea12, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BAY CITY
+    clip: {fileID: 8300000, guid: ca42cc8526bb0f44a87ab9e960222882, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Better Days
+    clip: {fileID: 8300000, guid: 52d97b0b2e2bd3a4d8ecb4e75df9d392, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BUBBLE TEA
+    clip: {fileID: 8300000, guid: a8ffcf419b0df7d4597c046cfa95dbf7, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: By the Tracks
+    clip: {fileID: 8300000, guid: 6a5a52fd2bdc99e4db209b260fbdc4dc, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Chilled
+    clip: {fileID: 8300000, guid: 427146435d927164e942c7eedbd9fcb7, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Desired
+    clip: {fileID: 8300000, guid: ffd939931d39f8f4a95b1e08eb374910, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: royalty free V A P O R W A V E
+    clip: {fileID: 8300000, guid: e7cdecdc1f56cf54ba5795f27f250ff4, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Sea_Dreams (Vaporwave)
+    clip: {fileID: 8300000, guid: da8f1122e2cfab34abd6f19a3e62b3bb, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: That Girl
+    clip: {fileID: 8300000, guid: 741c69f5324f76740a06b2ac8d377cc8, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Vaporwave Retro
+    clip: {fileID: 8300000, guid: 23a21c15cbdae0f4786f879fa00f05f3, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: VAPORWAVE TRAP BEAT
+    clip: {fileID: 8300000, guid: 103ba99d72ec75345ace107385325cd5, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: "We\u2019re Finally Landing"
+    clip: {fileID: 8300000, guid: e800c2161f1900d4a9ef0ee326535641, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: What Do You Want
+    clip: {fileID: 8300000, guid: 24d25ada0e7006244bc383119a6633b7, type: 3}
+    soundType: 1
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  songs: []
 --- !u!4 &1591615834
 Transform:
   m_ObjectHideFlags: 0
