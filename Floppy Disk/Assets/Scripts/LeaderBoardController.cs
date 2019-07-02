@@ -4,7 +4,8 @@ using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
 
-public class LeaderBoardController : MonoBehaviour {
+public class LeaderBoardController : MonoBehaviour
+{
 
     [System.Serializable]
     private class PlayerScore
@@ -29,8 +30,10 @@ public class LeaderBoardController : MonoBehaviour {
 
     private void Awake()
     {
+        // Init playerScores
         playerScores = new List<PlayerScore>();
 
+        // Load previous saved scores
         string jsonString = PlayerPrefs.GetString("scores");
         Scores scores = JsonUtility.FromJson<Scores>(jsonString);
         if(scores == null)
@@ -68,6 +71,9 @@ public class LeaderBoardController : MonoBehaviour {
         return 0;
     }
 
+    /// <summary>
+    /// Adds a new score to scores
+    /// </summary>
     public void SetScore(string username, int score)
     {
         if (playerScores == null) return;
@@ -94,7 +100,7 @@ public class LeaderBoardController : MonoBehaviour {
     }
 
     /// <summary>
-    /// Sorts the dictionary from best to lower score.
+    /// Sorts the scores List from higher to lower score.
     /// Deletes all score gameobjects and creates them again sorted.
     /// </summary>
     public void SortByScore()
@@ -119,7 +125,7 @@ public class LeaderBoardController : MonoBehaviour {
 
     // [WIP]
     /// <summary>
-    /// Sorts the dictionary in username alphabetical order.
+    /// Sorts the scores List by username alphabetical order.
     /// Deletes all score gameobjects and creates them again sorted.
     /// </summary>
     public void SortByName()
@@ -128,6 +134,10 @@ public class LeaderBoardController : MonoBehaviour {
         ShowScores();
     }
 
+    /// <summary>
+    /// Creates a UI element for every score.
+    /// The UI element is taken from a prefab and displays the player name and score.
+    /// </summary>
     public void ShowScores()
     {
         foreach(var entry in playerScores)

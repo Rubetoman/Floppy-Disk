@@ -5,9 +5,10 @@ using UnityEngine.Audio;
 using UnityEngine;
 
 /// <summary>
-/// Script that manages Audio of the scene, every sound clip to be played from a script can be managed using an instance of the AudioManager.
+/// Script that manages Audio of the game, every sound clip to be played from a script can be managed using an instance of the AudioManager.
 /// </summary>
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
 
     #region Singleton
     // Declare an instance of AudioManager.
@@ -21,7 +22,7 @@ public class AudioManager : MonoBehaviour {
     #endregion
 
     /// <summary>
-    /// Enum to divide audio clips in two groups.
+    /// Enum to divide audio clips in two types.
     /// </summary>
     public enum SoundType
     {
@@ -78,7 +79,10 @@ public class AudioManager : MonoBehaviour {
                 songs.Add(s);
             }
             else
+            {
                 s.source.outputAudioMixerGroup = soundEffectsGroup;
+            }
+
             s.source.loop = s.loop;                             // Set the clip to loop or not.
             s.source.volume = s.volume;                         // Set clip volume.
             s.source.pitch = s.pitch;                           // Set clip pitch.

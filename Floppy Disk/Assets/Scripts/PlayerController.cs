@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]         // Make sure the player has a Rigidbody2D
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public float jump_force = 10;
     public float move_smooth = 5;
@@ -15,7 +16,8 @@ public class PlayerController : MonoBehaviour {
     bool playing = false;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         rb = GetComponent<Rigidbody2D>();
         down_rotation = Quaternion.Euler(0, 0, 0);
         up_rotation = Quaternion.Euler(0, 0, 130);
@@ -23,7 +25,8 @@ public class PlayerController : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if (playing)
         {
             // Mouse Input is automaticaly translated to tap on phone devices
@@ -38,10 +41,6 @@ public class PlayerController : MonoBehaviour {
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, down_rotation, move_smooth * Time.deltaTime);
             }
-        }
-        else
-        {
-            // animate disk to go up and down
         }
 	}
 

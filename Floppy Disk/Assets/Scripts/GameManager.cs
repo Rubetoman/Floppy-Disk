@@ -11,7 +11,8 @@ using UnityEngine.Video;
 /// Script to manage the game. It contains information that will be accessed by diferent scripts and functions to manage the game.
 /// It is instanciated and not destroyed when changing between scenes.
 /// </summary>
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     #region Singleton
     // Declare an instance of GameManager.
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour {
     public GameObject ranking_screen;
     public GameObject options_menu;
 
+    // Post Processing variables
     public GameObject main_camera;
     public PostProcessingProfile TVPostProcessingProfile;
     public PostProcessingProfile GreenPostProcessingProfile;
@@ -79,8 +81,7 @@ public class GameManager : MonoBehaviour {
     public PostProcessType postProcessType = PostProcessType.TV;
     public FilterType filterType = FilterType.VHS;
 
-
-    public string startSoundName;
+    public string startSoundName;       // Sound that will be player on App start
 
     private int score { get; set; }    // Score of the game. 
 
@@ -334,26 +335,22 @@ public class GameManager : MonoBehaviour {
 
     public void Play()
     {
-        // play sound
         ResetGame();
         SetGameState(StateType.Play);
     }
 
     public void Options()
     {
-        // play sound
         SetGameState(StateType.Options);
     }
 
     public void Credits()
     {
-        // play sound
         SetGameState(StateType.Credits);
     }
 
     public void Ranking()
     {
-        // play sound
         SetGameState(StateType.Ranking);
     }
 
@@ -372,7 +369,7 @@ public class GameManager : MonoBehaviour {
         obstacleSpawner.GetComponent<ColumnController>().enabled = true;
         scoreText.enabled = true;
 
-        // Audio
+        // Audio: change to a random song
         AudioManager.Instance.PlayRandomSong();
     }
 }

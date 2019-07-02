@@ -9,9 +9,8 @@ using TMPro;
 /// <summary>
 /// Script for the Options Menu Cnavas. It contains functions to adjust game volume.
 /// </summary>
-public class OptionsMenu : MonoBehaviour {
-
-    //public AudioMixer audioMixer;                   // Audio Mixer for all the sounds in the game.
+public class OptionsMenu : MonoBehaviour
+{
 
     /// <summary>
     /// Sets the game music volume value to the one given as parameter.
