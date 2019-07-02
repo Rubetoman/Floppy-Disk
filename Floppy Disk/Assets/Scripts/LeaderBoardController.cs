@@ -6,32 +6,43 @@ using System.Linq;
 
 public class LeaderBoardController : MonoBehaviour {
 
-    Dictionary<string, int> playerScores;
+    [System.Serializable]
+    private class PlayerScore
+    {
+        public PlayerScore(string username, int userScore)
+        {
+            name = username;
+            score = userScore;
+        }
+        public string name;
+        public int score;
+    }
+
+    private class Scores
+    {
+        public List<PlayerScore> playerScoresList;
+    }
+
+    private List<PlayerScore> playerScores;
     public GameObject playerScoreEntryPrefab;
     public GameObject playerScoreData;
 
     private void Awake()
     {
-        SetScore("ABB", 0);
-        SetScore("Ruben", 999);
-        SetScore("adsad", 112);
-        SetScore("NAS", 8);
-        SetScore("BBB", 232);
-        SetScore("ADS", 1);
-        for(int i = 0; i < 45; i++)
+        playerScores = new List<PlayerScore>();
+
+        string jsonString = PlayerPrefs.GetString("scores");
+        Scores scores = JsonUtility.FromJson<Scores>(jsonString);
+        if(scores == null)
         {
-            print(i);
-            SetScore("A" + i, Random.Range(999, 0));
+            scores = new Scores();
         }
-
+        playerScores = scores.playerScoresList;
+        if(playerScores == null)
+        {
+            playerScores = new List<PlayerScore>();
+        }
     }
-
-    void Init () {
-        if (playerScores != null)
-            return;
-
-        playerScores = new Dictionary<string, int>();
-	}
 
     private void OnEnable()
     {
@@ -45,22 +56,41 @@ public class LeaderBoardController : MonoBehaviour {
 
     public int GetScore(string username)
     {
-        Init();
-        if (playerScores.ContainsKey(username))
+        if (playerScores == null) return 0;
+
+        foreach (PlayerScore playerScore in playerScores)
         {
-            return playerScores[username];
+            if (playerScore.name.Equals(username))
+                return playerScore.score;
         }
-        else
-        {
-            Debug.LogWarning("No score with that username");
-            return 0;
-        }
+
+        Debug.LogWarning("No score with that username");
+        return 0;
     }
 
     public void SetScore(string username, int score)
     {
-        Init();
-        playerScores[username] = score;
+        if (playerScores == null) return;
+
+        // Load saved scores
+        string jsonString = PlayerPrefs.GetString("scores");
+        Scores scores = JsonUtility.FromJson<Scores>(jsonString);
+        if (scores == null)
+        {
+            scores = new Scores();
+            scores.playerScoresList = new List<PlayerScore>();
+        }
+
+        // Add new score to scores
+        scores.playerScoresList.Add(new PlayerScore(username, score));
+
+        // Save updated scores
+        string json = JsonUtility.ToJson(scores);
+        PlayerPrefs.SetString("scores", json);
+        PlayerPrefs.Save();
+
+        // Update local variable
+        playerScores = scores.playerScoresList;
     }
 
     /// <summary>
@@ -69,39 +99,31 @@ public class LeaderBoardController : MonoBehaviour {
     /// </summary>
     public void SortByScore()
     {
-        var items = from entry in playerScores
-                    orderby entry.Value descending
-                    select entry;
-
-        Dictionary<string, int> auxDictionary = new Dictionary<string, int>();
-
-        foreach (KeyValuePair<string,int> entry in items)
+        for(int i = 0; i < playerScores.Count; i++)
         {
-            auxDictionary.Add(entry.Key, entry.Value);
+            for (int j = i + 1; j < playerScores.Count; j++)
+            {
+                if(playerScores[j].score > playerScores[i].score)
+                {
+                    // Swap
+                    PlayerScore aux = playerScores[i];
+                    playerScores[i] = playerScores[j];
+                    playerScores[j] = aux;
+                }
+            }
         }
 
-        playerScores = auxDictionary;
         DeleteScores();
         ShowScores();
     }
 
+    // [WIP]
     /// <summary>
     /// Sorts the dictionary in username alphabetical order.
     /// Deletes all score gameobjects and creates them again sorted.
     /// </summary>
     public void SortByName()
     {
-        var list = playerScores.Keys.ToList();
-        list.Sort();
-
-        Dictionary<string, int> auxDictionary = new Dictionary<string, int>();
-
-        foreach (var entry in list)
-        {
-            auxDictionary.Add(entry, playerScores[entry]);
-        }
-
-        playerScores = auxDictionary;
         DeleteScores();
         ShowScores();
     }
@@ -112,8 +134,8 @@ public class LeaderBoardController : MonoBehaviour {
         {
             GameObject go = (GameObject)Instantiate(playerScoreEntryPrefab);
             go.transform.SetParent(playerScoreData.transform);
-            go.transform.Find("Username").GetComponent<Text>().text = entry.Key;
-            go.transform.Find("Score").GetComponent<Text>().text = entry.Value.ToString();
+            go.transform.Find("Username").GetComponent<Text>().text = entry.name;
+            go.transform.Find("Score").GetComponent<Text>().text = entry.score.ToString();
         }
     }
 
