@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour {
         TV,             // Old TV type grain and vignette
         Green,          // Dark green palette
         Black_White,    // Black & White palette
+        Vaporwave,      // Changing colors
         None       
     };
 
@@ -74,6 +75,7 @@ public class GameManager : MonoBehaviour {
     public PostProcessingProfile TVPostProcessingProfile;
     public PostProcessingProfile GreenPostProcessingProfile;
     public PostProcessingProfile BWPostProcessingProfile;
+    public PostProcessingProfile VaporwavePostProcessingProfile;
     public PostProcessType postProcessType = PostProcessType.TV;
     public FilterType filterType = FilterType.VHS;
 
@@ -104,6 +106,14 @@ public class GameManager : MonoBehaviour {
         // If song ended play a new one
         if (gameState == StateType.Play && !AudioManager.Instance.IsClipPlaying())
             AudioManager.Instance.PlayRandomSong();
+
+        if(postProcessType == PostProcessType.Vaporwave)
+        { 
+            // Change color over time
+            ColorGradingModel.Settings colorSettings = VaporwavePostProcessingProfile.colorGrading.settings;
+            colorSettings.basic.hueShift += 0.2f;
+            VaporwavePostProcessingProfile.colorGrading.settings = colorSettings;
+        }
     }
 
     /// <summary>
@@ -243,6 +253,9 @@ public class GameManager : MonoBehaviour {
                 break;
             case PostProcessType.Black_White:
                 behaviour.profile = BWPostProcessingProfile;
+                break;
+            case PostProcessType.Vaporwave:
+                behaviour.profile = VaporwavePostProcessingProfile;
                 break;
             default:
             case PostProcessType.None:
