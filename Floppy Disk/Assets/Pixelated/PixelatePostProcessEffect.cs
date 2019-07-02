@@ -9,6 +9,6 @@ public class PixelatePostProcessEffect : MonoBehaviour
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
-        Graphics.Blit(source, effectMaterial);
+        Graphics.Blit(source, destination, effectMaterial);
     }
 }
