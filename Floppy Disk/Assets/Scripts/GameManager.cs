@@ -108,6 +108,14 @@ public class GameManager : MonoBehaviour
         if (gameState == StateType.Play && !AudioManager.Instance.IsClipPlaying())
             AudioManager.Instance.PlayRandomSong();
 
+        if (gameState == StateType.MainMenu)
+        {
+            if (Input.GetKeyDown("escape"))
+            {
+                Application.Quit(); // Quits the game
+            }
+        }
+
         if(postProcessType == PostProcessType.Vaporwave)
         { 
             // Change color over time
