@@ -6410,7 +6410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: aa327e351e19d524dbd957daaa9aedef, type: 2}
+  profile: {fileID: 11400000, guid: 9f6b55e6a70972248b685ed88d3b63e8, type: 2}
 --- !u!114 &1561905134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6431,7 +6431,7 @@ VideoPlayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561905129}
-  m_Enabled: 1
+  m_Enabled: 0
   m_VideoClip: {fileID: 32900000, guid: 324a486eb541aa848884bad1ebd7b5e6, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
@@ -6465,7 +6465,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561905129}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd732fb44d34b94499d898ade1175074, type: 3}
   m_Name: 
@@ -7834,6 +7834,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 9f6b55e6a70972248b685ed88d3b63e8,
         type: 2}
+    - target: {fileID: 114682779948611720, guid: b7b3aaab736e70142b857863af28a545,
+        type: 3}
+      propertyPath: postProcessType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114682779948611720, guid: b7b3aaab736e70142b857863af28a545,
+        type: 3}
+      propertyPath: filterType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4938570350817538, guid: b7b3aaab736e70142b857863af28a545, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.0056715
