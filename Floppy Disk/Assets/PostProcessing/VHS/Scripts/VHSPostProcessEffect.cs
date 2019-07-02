@@ -28,6 +28,13 @@ public class VHSPostProcessEffect : MonoBehaviour
 
     void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+        if (_material == null)
+        {
+            _material = new Material(shader);
+            Graphics.Blit(source, destination);
+            return;
+        }
+
         _material.SetTexture("_VHSTex", _player.texture);
 
         _yScanline += Time.deltaTime * 0.01f;

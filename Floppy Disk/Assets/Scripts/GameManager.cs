@@ -279,13 +279,12 @@ public class GameManager : MonoBehaviour {
         else
             Debug.LogWarning("Post Process Type already in " + type.ToString());
 
-        PostProcessingBehaviour behaviour = main_camera.GetComponent<PostProcessingBehaviour>();
         switch (type)
         {
             case FilterType.VHS:
                 main_camera.GetComponent<PixelatePostProcessEffect>().enabled = false;
-                main_camera.GetComponent<VHSPostProcessEffect>().enabled = true;
                 main_camera.GetComponent<VideoPlayer>().enabled = true;
+                main_camera.GetComponent<VHSPostProcessEffect>().enabled = true;
                 break;
             case FilterType.Pixel:
                 main_camera.GetComponent<PixelatePostProcessEffect>().enabled = true;
@@ -294,7 +293,9 @@ public class GameManager : MonoBehaviour {
                 break;
             default:
             case FilterType.None:
-                behaviour.profile = null;
+                main_camera.GetComponent<PixelatePostProcessEffect>().enabled = false;
+                main_camera.GetComponent<VHSPostProcessEffect>().enabled = false;
+                main_camera.GetComponent<VideoPlayer>().enabled = false;
                 break;
         }
     }
