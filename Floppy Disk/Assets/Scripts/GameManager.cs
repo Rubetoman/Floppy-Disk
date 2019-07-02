@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.PostProcessing;
+using UnityEngine.Video;
 
 /// <summary>
 /// Script to manage the game. It contains information that will be accessed by diferent scripts and functions to manage the game.
@@ -35,6 +37,28 @@ public class GameManager : MonoBehaviour {
         Credits,        // Player is loking at the credits.  
         Ranking         // Player is loking at the ranking.
     };
+
+    /// <summary>
+    /// Enumum to define the post processing profile.
+    /// </summary>
+    public enum PostProcessType
+    {
+        TV,             // Old TV type grain and vignette
+        Green,          // Dark green palette
+        Black_White,    // Black & White palette
+        None       
+    };
+
+    /// <summary>
+    /// Enumum to define the post processing profile.
+    /// </summary>
+    public enum FilterType
+    {
+        VHS,        // VHS like lines and distorsion
+        Pixel,      // Pixelated image
+        None
+    };
+
     public GameObject player;           // Player GameObject (updated on each scene).
     public GameObject obstacleSpawner;  // The GameObject that spawns the obstacles.
     public Text scoreText;
@@ -45,6 +69,14 @@ public class GameManager : MonoBehaviour {
     public GameObject credits_menu;
     public GameObject ranking_screen;
     public GameObject options_menu;
+
+    public GameObject main_camera;
+    PostProcessingProfile TVPostProcessingProfile;
+    PostProcessingProfile GreenPostProcessingProfile;
+    PostProcessingProfile BWPostProcessingProfile;
+    public PostProcessType postProcessType = PostProcessType.TV;
+    public FilterType filterType = FilterType.VHS;
+
 
     public string startSoundName;
 
@@ -185,6 +217,105 @@ public class GameManager : MonoBehaviour {
     {
         scoreText.text = score.ToString();
     }
+    #endregion
+
+    #region PostProcessing Functions
+
+    /// <summary>
+    /// Function to set the Post Processing Profile to the one passed as parameter.
+    /// </summary>
+    /// <param name="type"> PostProcessType to change to.</param>
+    public void SetPostProcessType(PostProcessType type)
+    {
+        if (postProcessType != type)
+            postProcessType = type;
+        else
+            Debug.LogWarning("Post Process Type already in " + type.ToString());
+
+        PostProcessingBehaviour behaviour = main_camera.GetComponent<PostProcessingBehaviour>();
+        switch (type)
+        {
+            case PostProcessType.TV:
+                behaviour.profile = TVPostProcessingProfile;
+                break;
+            case PostProcessType.Green:
+                behaviour.profile = GreenPostProcessingProfile;
+                break;
+            case PostProcessType.Black_White:
+                behaviour.profile = BWPostProcessingProfile;
+                break;
+            default:
+            case PostProcessType.None:
+                behaviour.profile = null;
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Function to set the Post Processing Type to the one passed as parameter.
+    /// </summary>
+    /// <param name="type"> PostProcessType to change to.</param>
+    public void SetPostProcessType(int type)
+    {
+        SetPostProcessType((PostProcessType)type);
+    }
+
+    /// <summary>
+    /// Function to get current PostProcessType.
+    /// </summary>
+    public PostProcessType GetPostProcessType()
+    {
+        return postProcessType;
+    }
+
+    /// <summary>
+    /// Function to set the Post Processing Filter to the one passed as parameter.
+    /// </summary>
+    /// <param name="type"> FilterType to change to.</param>
+    public void SetFilterType(FilterType type)
+    {
+        if (filterType != type)
+            filterType = type;
+        else
+            Debug.LogWarning("Post Process Type already in " + type.ToString());
+
+        PostProcessingBehaviour behaviour = main_camera.GetComponent<PostProcessingBehaviour>();
+        switch (type)
+        {
+            case FilterType.VHS:
+                main_camera.GetComponent<PixelatePostProcessEffect>().enabled = false;
+                main_camera.GetComponent<VHSPostProcessEffect>().enabled = true;
+                main_camera.GetComponent<VideoPlayer>().enabled = true;
+                break;
+            case FilterType.Pixel:
+                main_camera.GetComponent<PixelatePostProcessEffect>().enabled = true;
+                main_camera.GetComponent<VHSPostProcessEffect>().enabled = false;
+                main_camera.GetComponent<VideoPlayer>().enabled = false;
+                break;
+            default:
+            case FilterType.None:
+                behaviour.profile = null;
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Function to set the Post Processing Filter to the one passed as parameter.
+    /// </summary>
+    /// <param name="type"> FilterType to change to.</param>
+    public void SetFilterType(int type)
+    {
+        SetFilterType((FilterType)type);
+    }
+
+    /// <summary>
+    /// Function to get current FilterType.
+    /// </summary>
+    public FilterType GetFilterType()
+    {
+        return filterType;
+    }
+
     #endregion
 
     public void Play()
