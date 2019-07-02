@@ -71,9 +71,9 @@ public class GameManager : MonoBehaviour {
     public GameObject options_menu;
 
     public GameObject main_camera;
-    PostProcessingProfile TVPostProcessingProfile;
-    PostProcessingProfile GreenPostProcessingProfile;
-    PostProcessingProfile BWPostProcessingProfile;
+    public PostProcessingProfile TVPostProcessingProfile;
+    public PostProcessingProfile GreenPostProcessingProfile;
+    public PostProcessingProfile BWPostProcessingProfile;
     public PostProcessType postProcessType = PostProcessType.TV;
     public FilterType filterType = FilterType.VHS;
 

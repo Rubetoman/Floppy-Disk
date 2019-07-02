@@ -117,7 +117,7 @@ public class AudioManager : MonoBehaviour {
         Sound s = songs[index];
         if (s == null)
         {
-            Debug.LogWarning("Soung: " + name + " not found.");
+            Debug.LogWarning("Song: " + s.name + " not found.");
             return;
         }
         if (s.soundType != SoundType.Music)                                      // See if the sound is a music clip.
@@ -126,7 +126,8 @@ public class AudioManager : MonoBehaviour {
         // If there was a previous music clip playing stop it.
         if (currentMusicClip != null && currentMusicClip.source.isPlaying)
         {
-            Stop(currentMusicClip.name);
+            //Stop(currentMusicClip.name);
+            currentMusicClip.source.Stop();
         }
 
         // Play sound effect
@@ -134,7 +135,7 @@ public class AudioManager : MonoBehaviour {
         currentMusicClip = s;
 
         //ChangeAudioSourceClip(s.source, s.clip, true, true);
-        StartCoroutine(ChangeAudioSourceClip(s.source, s.clip, false, false));
+        StartCoroutine(ChangeAudioSourceClip(currentMusicClip.source, currentMusicClip.clip, false, false));
     }
 
     /// <summary>
@@ -293,8 +294,14 @@ public class AudioManager : MonoBehaviour {
     /// <returns> True if a clip is being played, false otherwise.</returns>
     public bool IsClipPlaying()
     {
-        AudioSource audioSource = GetComponent<AudioSource>();
-        return audioSource.isPlaying;
+        AudioSource[] audioSources = GetComponents<AudioSource>();
+
+        foreach (AudioSource audioSource in audioSources)
+        {
+            if (audioSource.isPlaying)
+                return true;
+        }
+        return false;
     }
     #endregion
 }
