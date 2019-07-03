@@ -86,6 +86,7 @@ public class AudioManager : MonoBehaviour
             s.source.loop = s.loop;                             // Set the clip to loop or not.
             s.source.volume = s.volume;                         // Set clip volume.
             s.source.pitch = s.pitch;                           // Set clip pitch.
+            s.source.playOnAwake = false;
         }
     }
 
