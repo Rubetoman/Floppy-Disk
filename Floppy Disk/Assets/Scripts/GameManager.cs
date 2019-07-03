@@ -143,8 +143,8 @@ public class GameManager : MonoBehaviour
     {
         if (gameState != state)
             gameState = state;
-        else
-            Debug.LogWarning("State already in " + state.ToString());
+        //else
+        //    Debug.LogWarning("State already in " + state.ToString());
 
         switch (state)
         {
@@ -248,8 +248,8 @@ public class GameManager : MonoBehaviour
     {
         if (postProcessType != type)
             postProcessType = type;
-        else
-            Debug.LogWarning("Post Process Type already in " + type.ToString());
+       // else
+           // Debug.LogWarning("Post Process Type already in " + type.ToString());
 
         PostProcessingBehaviour behaviour = main_camera.GetComponent<PostProcessingBehaviour>();
         switch (type)
@@ -298,8 +298,8 @@ public class GameManager : MonoBehaviour
     {
         if (filterType != type)
             filterType = type;
-        else
-            Debug.LogWarning("Post Process Type already in " + type.ToString());
+       // else
+        //   Debug.LogWarning("Post Process Type already in " + type.ToString());
 
         switch (type)
         {

@@ -67,7 +67,7 @@ public class LeaderBoardController : MonoBehaviour
                 return playerScore.score;
         }
 
-        Debug.LogWarning("No score with that username");
+        //Debug.LogWarning("No score with that username");
         return 0;
     }
 

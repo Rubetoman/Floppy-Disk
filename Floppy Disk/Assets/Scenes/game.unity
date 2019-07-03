@@ -3452,8 +3452,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1.6026001, y: -18.664978}
-  m_SizeDelta: {x: 3.2051, y: 91.66998}
+  m_AnchoredPosition: {x: 5.7, y: -18.664978}
+  m_SizeDelta: {x: 17.9, y: 91.7}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &740700813
 MonoBehaviour:
@@ -6381,7 +6381,7 @@ Camera:
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &1561905132

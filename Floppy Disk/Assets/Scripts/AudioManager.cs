@@ -98,7 +98,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found.");
+            //Debug.LogWarning("Sound: " + name + " not found.");
             return;
         }
         if(s.soundType == SoundType.Music)                                      // See if the sound is a music clip.
@@ -121,7 +121,7 @@ public class AudioManager : MonoBehaviour
         Sound s = songs[index];
         if (s == null)
         {
-            Debug.LogWarning("Song: " + s.name + " not found.");
+            //Debug.LogWarning("Song: " + s.name + " not found.");
             return;
         }
         if (s.soundType != SoundType.Music)                                      // See if the sound is a music clip.
@@ -152,7 +152,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Soung: " + name + " not found.");
+            //Debug.LogWarning("Soung: " + name + " not found.");
             return;
         }
         if (s.soundType != SoundType.Music)                                      // See if the sound is a music clip.
@@ -181,7 +181,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found.");
+            //Debug.LogWarning("Sound: " + name + " not found.");
             return;
         }
         s.source.Stop();
@@ -235,8 +235,8 @@ public class AudioManager : MonoBehaviour
     {
         if (audioMixer != null)
             audioMixer.SetFloat("MusicVolume", volume);
-        else
-            Debug.LogError("Missing audio mixer in Game Manager");
+        //else
+           // Debug.LogError("Missing audio mixer in Game Manager");
     }
 
     /// <summary>
@@ -247,8 +247,8 @@ public class AudioManager : MonoBehaviour
     {
         if (audioMixer != null)
             audioMixer.SetFloat("SoundEffectsVolume", volume);
-        else
-            Debug.LogError("Missing audio mixer in Game Manager");
+        //else
+            //Debug.LogError("Missing audio mixer in Game Manager");
     }
     #endregion
 
@@ -283,7 +283,7 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Sound: " + name + " not found.");
+            //Debug.LogWarning("Sound: " + name + " not found.");
             return false;
         }
         if (s.source.isPlaying)
